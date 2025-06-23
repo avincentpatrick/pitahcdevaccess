@@ -1,0 +1,53 @@
+
+	[
+		{
+			"id": 1,
+			"suffix_code": "JR",
+			"suffix_name": "Jr."
+		},
+		{
+			"id": 2,
+			"suffix_code": "SR",
+			"suffix_name": "Sr."
+		},
+		{
+			"id": 3,
+			"suffix_code": "I",
+			"suffix_name": "I"
+		},
+		{
+			"id": 4,
+			"suffix_code": "II",
+			"suffix_name": "II"
+		},
+		{
+			"id": 5,
+			"suffix_code": "III",
+			"suffix_name": "III"
+		},
+		{
+			"id": 6,
+			"suffix_code": "IV",
+			"suffix_name": "IV"
+		},
+		{
+			"id": 7,
+			"suffix_code": "V",
+			"suffix_name": "V"
+		},
+		{
+			"id": 8,
+			"suffix_code": "VI",
+			"suffix_name": "VI"
+		},
+		{
+			"id": 9,
+			"suffix_code": "VII",
+			"suffix_name": "VII"
+		},
+		{
+			"id": 10,
+			"suffix_code": "VIII",
+			"suffix_name": "VIII"
+		}
+	]

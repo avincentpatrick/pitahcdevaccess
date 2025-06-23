@@ -1,0 +1,15 @@
+
+	[
+		{
+			"id": 1,
+			"modality_type_name": "Practitioner"
+		},
+		{
+			"id": 2,
+			"modality_type_name": "Facility"
+		},
+		{
+			"id": 3,
+			"modality_type_name": "Organization"
+		}
+	]

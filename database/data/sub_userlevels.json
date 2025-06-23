@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "userlevel_id": 2,
+        "sub_userlevel_name": "Division Chief"
+    },
+    {
+        "id": 2,
+        "userlevel_id": 2,
+        "sub_userlevel_name": "Validator"
+    },
+    {
+        "id": 3,
+        "userlevel_id": 2,
+        "sub_userlevel_name": "Encoder"
+    }	
+]

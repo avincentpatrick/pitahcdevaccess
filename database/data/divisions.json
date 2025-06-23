@@ -1,0 +1,31 @@
+
+	[
+		{
+			"id": 1,
+			"division_name": "Office of the Director General"
+		},
+		{
+			"id": 2,
+			"division_name": "Research and Development Division"
+		},
+		{
+			"id": 3,
+			"division_name": "Social Advocacy and Training Division"
+		},
+		{
+			"id": 4,
+			"division_name": "Standards and Accreditation Division"
+		},
+		{
+			"id": 5,
+			"division_name": "Management Services Division"
+		},
+		{
+			"id": 6,
+			"division_name": "Finance Division"
+		},
+		{
+			"id": 7,
+			"division_name": "Administrative Division"
+		}
+	]

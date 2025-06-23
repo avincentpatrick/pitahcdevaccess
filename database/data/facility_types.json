@@ -1,0 +1,15 @@
+
+	[
+		{
+			"id": 1,
+			"facility_type_name": "Training Center"
+		},
+		{
+			"id": 2,
+			"facility_type_name": "Clinic/ Healing Center/ Center"
+		},
+		{
+			"id": 3,
+			"facility_type_name": "TAHC Organization"
+		}
+	]

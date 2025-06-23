@@ -1,0 +1,13 @@
+
+	[
+		{
+			"id": 1,
+			"lgu_type_name": "Province",
+			"lgu_type_shortened_name": "Province"
+		},
+		{
+			"id": 2,
+			"lgu_type_name": "Highly Urbanized Cities/ Independent Component Cities",
+			"lgu_type_shortened_name": "HUC/ ICC"
+		}
+	]

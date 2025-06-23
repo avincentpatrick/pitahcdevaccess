@@ -1,0 +1,19 @@
+
+	[
+		{
+			"id": 1,
+			"office_name": "Philippine Institute of Traditional and Alternative Health Care"
+		},
+		{
+			"id": 2,
+			"office_name": "Tacloban Herbal Pharmaceutical Processing and Manufacturing Plant"
+		},
+		{
+			"id": 3,
+			"office_name": "Cagayan Valley Herbal Processing Plant"
+		},
+		{
+			"id": 4,
+			"office_name": "Davao Herbal Processing Plant"
+		}
+	]

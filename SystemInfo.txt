@@ -1,0 +1,6 @@
+{
+'SystemName' : 'Local Health Systems Maturity Levels Information System',
+'SystemVersion':'1',
+'SystemDescription':'Encoding of integration status and uploading of Means of Verification (MOVs) by the Universal Health Case Integration Sites (UHC IS), and validation of results by the CHDs, MOH-BARMM and concerned CO Bureaus. To facilitate the collection of data, and generation of outputs and analyses of the LHS ML annual monitoring at different levels for relevant stakeholders. To serve as repository of the MOVs submitted by the UHC IS',
+'AdminEmail':'lhsmlinfosys.doh@gmail.com'
+}

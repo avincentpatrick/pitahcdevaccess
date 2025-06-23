@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "userlevel_name": "Administrator"
+    },
+    {
+        "id": 2,
+        "userlevel_name": "PITAHC Personnel"
+    },
+    {
+        "id": 3,
+        "userlevel_name": "Member"
+    }		
+]

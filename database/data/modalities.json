@@ -1,0 +1,43 @@
+
+	[
+		{
+			"id": 1,
+			"modality_name": "Acupuncture"
+		},
+		{
+			"id": 2,
+			"modality_name": "Chiropractic"
+		},
+		{
+			"id": 3,
+			"modality_name": "Hilot"
+		},
+		{
+			"id": 4,
+			"modality_name": "Homeopath"
+		},
+		{
+			"id": 5,
+			"modality_name": "Naturopathy"
+		},
+		{
+			"id": 6,
+			"modality_name": "Osteopathy"
+		},
+		{
+			"id": 7,
+			"modality_name": "Traditional Chinese Medicine"
+		},
+		{
+			"id": 8,
+			"modality_name": "Tuina"
+		},
+		{
+			"id": 9,
+			"modality_name": "Anthroposophic Medicine"
+		},
+		{
+			"id": 10,
+			"modality_name": "Ayurveda"
+		}
+	]

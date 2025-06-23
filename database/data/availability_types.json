@@ -1,0 +1,11 @@
+
+	[
+		{
+			"id": 1,
+			"availability_type_name": "Available"
+		},
+		{
+			"id": 2,
+			"availability_type_name": "Not available"
+		}
+	]

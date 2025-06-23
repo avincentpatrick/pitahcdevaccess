@@ -1,0 +1,11 @@
+
+	[
+		{
+			"id": 1,
+			"application_sub_type_name": "Initial"
+		},
+		{
+			"id": 2,
+			"application_sub_type_name": "Renewal"
+		}
+	]

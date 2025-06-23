@@ -1,0 +1,11 @@
+
+	[
+		{
+			"id": 1,
+			"sex_type_name": "Male"
+		},
+		{
+			"id": 2,
+			"sex_type_name": "Female"
+		}
+	]

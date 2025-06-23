@@ -1,0 +1,11 @@
+
+	[
+		{
+			"id": 1,
+			"status_type_name": "Active"
+		},
+		{
+			"id": 2,
+			"status_type_name": "Inactive"
+		}
+	]
