@@ -160,13 +160,11 @@ class ListPractitioners extends Component
             $this->search = NULL;
             return redirect()->back(); 
         }
-        $store_filename = strtoupper($this->last_name).'_'.strtoupper($this->first_name).'.pdf';
-        $photo_file_name = $this->photo_file_name ? $this->photo_file_name->storeAs('ID PHOTO', $store_filename) : NULL;
-        
-        Practitioner::create([
+
+        $practitioner = Practitioner::create([
             'status_type_id' => 1,
             'application_type_id' => 1,
-            'photo_file_name' => $photo_file_name ? $photo_file_name : NULL,
+            'photo_file_name' => null,
             'prefix_id' => $this->prefix_id,
             'last_name' => strtoupper($this->last_name),
             'first_name' => strtoupper($this->first_name),
@@ -195,6 +193,14 @@ class ListPractitioners extends Component
             'created_by' => Auth::id(),
             'updated_by' => Auth::id()
         ]);
+
+        if ($this->photo_file_name) {
+            $extension = $this->photo_file_name->getClientOriginalExtension();
+            $store_filename = $practitioner->id . '.' . $extension;
+            $photo_path = $this->photo_file_name->storeAs('id_photo', $store_filename);
+            $practitioner->update(['photo_file_name' => $photo_path]);
+        }
+
         $this->dispatchBrowserEvent('success-message', ['message' => 'Practitioner Added Successfully!']);
         $this->search = NULL;
         return redirect()->back();
@@ -238,8 +244,17 @@ class ListPractitioners extends Component
     public function UpdatePractitioner()
     {
         $this->validate();
+
+        $photo_path = $this->practitioner->photo_file_name;
+
+        if ($this->photo_file_name && is_object($this->photo_file_name)) {
+            $extension = $this->photo_file_name->getClientOriginalExtension();
+            $store_filename = $this->practitioner->id . '.' . $extension;
+            $photo_path = $this->photo_file_name->storeAs('id_photo', $store_filename);
+        }
+
         $this->practitioner->update([
-            'photo_file_name' => $this->photo_file_name,
+            'photo_file_name' => $photo_path,
             'prefix_id' => $this->prefix_id,
             'last_name' => strtoupper($this->last_name),
             'first_name' => strtoupper($this->first_name),
@@ -417,15 +432,5 @@ class ListPractitioners extends Component
         if ($this->photo_file_name) {
             $this->photo_preview_url = $this->photo_file_name->temporaryUrl();
         }
-    }
-
-    public function download($id)
-    {      
-        $data = Practitioner::where('id', $id)->first();
-        $filepath = storage_path("app/{$data->photo_file_name}");
-        $content=file_get_contents($filepath);
-        return response($content)->withHeaders([
-            'Content-Type' => mime_content_type($filepath)
-        ]);
     }
 }

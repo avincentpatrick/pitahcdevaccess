@@ -316,7 +316,9 @@
                                             <div class="col-6">
                                                 <div class="form-group" id="div_photo_file_name">
                                                     <label>Upload 2x2 Photo</label><br>
-                                                    <a href="{{ url('/download_photo_file/'.$practitioner_id) }}" target="_BLANK">{{ $photo_file_name }}</a>
+                                                    @if($ShowUpdateModal == 0 && $practitioner_id)
+                                                    <a href="{{ route('download.photo', ['id' => $practitioner_id]) }}" target="_BLANK">{{ $photo_file_name }}</a>
+                                                    @endif
                                                     <div class="custom-file" wire:ignore>
                                                         <div x-data="{ isUploading: false, progress: 0, file: false }"
                                                                                 x-on:livewire-upload-start="isUploading = true"

@@ -18,6 +18,7 @@ use App\Http\Livewire\Pages\Practitioners\ViewCertificate;
 use App\Http\Livewire\Pages\Practitioners\FileUpload;
 use App\Http\Livewire\Pages\Users\ListUsers;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PhotoController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 /*
@@ -60,6 +61,7 @@ Route::group(['middleware' => ['auth', 'verified', 'activated', 'inactive']], fu
     Route::get('/pages/facilities/profile-facility/{param}', ProfileFacility::class)->name('profile-facility');
     Route::get('/pages/practitioners/view-certificate/{param}', ViewCertificate::class)->name('view-certificate');
     Route::get('/pages/practitioners/file-upload', FileUpload::class)->name('file-upload');
+    Route::get('/download_photo_file/{id}', [PhotoController::class, 'download'])->name('download.photo');
     });
 Route::group(['middleware' => ['auth', 'admin', 'activated', 'inactive']], function(){
     Route::get('/pages/users/list-users', ListUsers::class)->name('list-users');

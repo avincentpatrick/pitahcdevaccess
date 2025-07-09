@@ -38,6 +38,7 @@ class ProfilePractitioner extends Component
     public $initialApplicationStatus;
     //practitioner profile
     public $practitioner = NULL;
+    public $practitioner_id = NULL;
     public $status_type_id = NULL;
     public $photo_file_name = NULL;
     public $prefix_id = NULL;
@@ -202,6 +203,8 @@ class ProfilePractitioner extends Component
     public function editPractitioner(Practitioner $practitioner)
     {
         $this->practitioner = $practitioner;
+        $this->ShowUpdateModal = 0;
+        $this->practitioner_id = $practitioner->id;
         $this->photo_file_name = $practitioner->photo_file_name;
         $this->prefix_id = $practitioner->prefix_id;
         $this->last_name = $practitioner->last_name;
@@ -229,13 +232,23 @@ class ProfilePractitioner extends Component
         $this->business_barangay_id = $practitioner->business_barangay_id;
         $this->business_address = $practitioner->business_address;
         $this->dispatchBrowserEvent('show-practitioner-form');
+        $this->dispatchBrowserEvent('reset-file-upload');
     }
 
     public function UpdatePractitioner()
     {
         $this->validate();
+
+        $photo_path = $this->practitioner->photo_file_name;
+
+        if ($this->photo_file_name && is_object($this->photo_file_name)) {
+            $extension = $this->photo_file_name->getClientOriginalExtension();
+            $store_filename = $this->practitioner->id . '.' . $extension;
+            $photo_path = $this->photo_file_name->storeAs('public/id_photo', $store_filename);
+        }
+
         $this->practitioner->update([
-            'photo_file_name' => $this->photo_file_name,
+            'photo_file_name' => $photo_path,
             'prefix_id' => $this->prefix_id,
             'last_name' => strtoupper($this->last_name),
             'first_name' => strtoupper($this->first_name),

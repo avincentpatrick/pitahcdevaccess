@@ -31,7 +31,11 @@
                                                     <div class="card-body">
                                                         <div class="row text-center align-items-center">
                                                             <div class="col-md-12">
-                                                                <img src="https://via.placeholder.com/150" class="img-fluid rounded-circle" alt="Profile Picture">
+                                                                @if($practitioners_info->photo_file_name)
+                                                                    <img src="{{ asset('storage/' . $practitioners_info->photo_file_name) }}" class="img-fluid rounded-circle" alt="Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">
+                                                                @else
+                                                                    <i class="fas fa-user-circle" style="font-size: 150px;"></i>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -517,11 +521,15 @@
     <div class="modal fade bd-example-modal-lg" id="practitioner-form" wire:ignore.self>
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <form autocomplete="off" wire:submit.prevent="UpdatePractitioner">
+                <form autocomplete="off" wire:submit.prevent="{{ $ShowUpdateModal == 0 ? 'UpdatePractitioner' : 'InsertPractitioner' }}">
                 @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            <span><i class="nav-icon fas fa-user-md mr-2"></i>Update Practitioner</span>   
+                            @if($ShowUpdateModal == 0)
+                                <span><i class="nav-icon fas fa-user-md mr-2"></i>Update Practitioner</span>   
+                            @else
+                                <span><i class="nav-icon fas fa-user-md mr-2"></i>Add Practitioner</span>
+                            @endif
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
                     </div>
@@ -575,6 +583,33 @@
                                                     <p class="text-danger">{{ $message }}</p>
                                                 @enderror
                                             </div>
+                                            <div class="col-6">
+                                                <div class="form-group" id="div_photo_file_name">
+                                                    <label>Upload 2x2 Photo</label><br>
+                                                    @if($ShowUpdateModal == 0 && $practitioner_id)
+                                                    <a href="{{ route('download.photo', ['id' => $practitioner_id]) }}" target="_BLANK">{{ $photo_file_name }}</a>
+                                                    @endif
+                                                    <div class="custom-file" wire:ignore>
+                                                        <div x-data="{ isUploading: false, progress: 0, file: false }"
+                                                                                x-on:livewire-upload-start="isUploading = true"
+                                                                                x-on:livewire-upload-finish="isUploading = false; file = true; progress = 5"
+                                                                                x-on:livewire-upload-error="isUploading = false"
+                                                                                x-on:livewire-upload-progress="progress = $event.detail.progress"
+                                                                                x-on:reset-file-upload.window="file = false"
+                                                                            >
+                                                            <input id="photo_file_name" name="photo_file_name" type="file" accept="image/jpeg, image/png" wire:model.defer="photo_file_name">
+                                                            <div x-show="isUploading" class="progress progress-sm mt-2 rounded">
+                                                                <div class="progress-bar bg-success progress-bar-striped" role="progressbar"
+                                                                    aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`">
+                                                                </div>
+                                                            </div>
+                                                            <div x-show="file" class="mt-3">
+                                                                <span style="color: green">File uploaded successfully</span>
+                                                            </div>
+                                                        </div> 
+                                                    </div> 
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-4">
@@ -616,7 +651,7 @@
                                                 @enderror
                                             </div>
                                             <div class="col-3">
-                                                <div class="form-group" id="main_div_birth_date" wire:ignore.self>
+                                                <div class="form-group" id="div_birth_date" wire:ignore.self>
                                                     <label>Date of Birth:</label><span class="text-danger" style="font-weight:bold;"> *</span>
                                                     <input id="birth_date" type="date" class="form-control" placeholder="mm/dd/yyyy" max="{{ date('Y-m-d') }}" wire:model="birth_date">
                                                 </div>
@@ -886,7 +921,11 @@
                             <span><i class="fa fa-ban mr-2"></i>Cancel</span>
                         </button>
                         <button type="submit" class="btn btn-primary">
-                            <span><i class="fa fa-save mr-2"></i>Save</span>
+                            @if($ShowUpdateModal == 0)
+                                <span><i class="fa fa-save mr-2"></i>Save</span>
+                            @else  
+                                <span><i class="fa fa-plus mr-2"></i>Add</span>
+                            @endif
                         </button>
                     </div>
                 </form>
