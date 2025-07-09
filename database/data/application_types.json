@@ -2,7 +2,7 @@
 	[
 		{
 			"id": 1,
-			"application_types_name": "Walk-in"
+			"application_type_name": "Walk-in"
 		},
 		{
 			"id": 2,

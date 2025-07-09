@@ -11,7 +11,39 @@ class Practitioner extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'status_type_id',
+        'application_type_id',
+        'photo_file_name',
+        'prefix_id',
+        'last_name',
+        'first_name',
+        'middle_name',
+        'suffix_id',
+        'birth_date',
+        'birth_place',
+        'citizenship_status_type_id',
+        'primary_citizenship_id',
+        'secondary_citizenship_id',
+        'sex_type_id',
+        'landline',
+        'mobile_number',
+        'business_number',
+        'email',
+        'residential_region_id',
+        'residential_province_id',
+        'residential_city_id',
+        'residential_barangay_id',
+        'residential_address',
+        'business_region_id',
+        'business_province_id',
+        'business_city_id',
+        'business_barangay_id',
+        'business_address',
+        'created_by',
+        'updated_by',
+    ];
+    
     protected $auditInclude = [
         'status_type_id',
         'photo_file_name',
@@ -114,27 +146,7 @@ class Practitioner extends Model implements Auditable
 
     public function business_barangay()
     {
-        return $this->belongsTo(Barangay::class, 'business_barangay_id')->orderBy('id', 'asc');
-    }
-
-    public function region()
-    {
-        return $this->belongsTo(Region::class, 'residential_region_id')->orderBy('id', 'asc');
-    }
-
-    public function province()
-    {
-        return $this->belongsTo(Province::class, 'residential_province_id')->orderBy('id', 'asc');
-    }
-
-    public function city()
-    {
-        return $this->belongsTo(City::class, 'residential_city_id')->orderBy('id', 'asc');
-    }
-
-    public function barangay()
-    {
-        return $this->belongsTo(Barangay::class, 'residential_barangay_id')->orderBy('id', 'asc');
+        return $this->belongsTo(Barangay::class, 'business_barangay_id');
     }
 
     public function user_created()
@@ -149,87 +161,69 @@ class Practitioner extends Model implements Auditable
 
     public function scopeSearch($query, $term)
     {
-        $terms = collect(explode(' ', strtolower($term)))->filter(); 
-    
-        $query->where(function ($query) use ($terms) {
-            foreach ($terms as $term) {
-                $term = "%$term%";
-                $query->where(function ($query) use ($term) {
-                    $query->whereRaw('LOWER(last_name) LIKE ?', [$term])
-                    ->orWhereRaw('LOWER(first_name) LIKE ?', [$term])
-                    ->orWhereRaw('LOWER(middle_name) LIKE ?', [$term])
-                    ->orWhereRaw('LOWER(email) LIKE ?', [$term])
-                    ->orWhereRaw('LOWER(residential_address) LIKE ?', [$term])
-                    ->orWhereRaw('LOWER(business_address) LIKE ?', [$term])
-                    ->orWhereHas('status_type', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(status_type_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('application_type', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(application_type_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('sex_type', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(sex_type_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('prefix', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(prefix_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('suffix', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(suffix_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('primary_citizenship', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(nationality_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('secondary_citizenship', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(nationality_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('residential_region', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(region_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('residential_province', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(province_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('residential_city', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(city_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('residential_barangay', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(barangay_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('business_region', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(region_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('business_province', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(province_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('business_city', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(city_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('business_barangay', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(barangay_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('region', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(region_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('province', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(province_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('city', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(city_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('barangay', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(barangay_name) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('user_created', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(last_name) LIKE ?', [$term])
-                            ->orWhereRaw('LOWER(first_name) LIKE ?', [$term])
-                            ->orWhereRaw('LOWER(email) LIKE ?', [$term]);
-                    })
-                    ->orWhereHas('user_updated', function ($query) use ($term) {
-                        $query->whereRaw('LOWER(last_name) LIKE ?', [$term])
-                            ->orWhereRaw('LOWER(first_name) LIKE ?', [$term])
-                            ->orWhereRaw('LOWER(email) LIKE ?', [$term]);
-                    });
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('last_name', 'like', $term)
+                ->orWhere('first_name', 'like', $term)
+                ->orWhere('middle_name', 'like', $term)
+                ->orWhere('email', 'like', $term)
+                ->orWhere('residential_address', 'like', $term)
+                ->orWhere('business_address', 'like', $term)
+                ->orWhereHas('status_type', function ($query) use ($term) {
+                    $query->where('status_type_name', 'like', $term);
+                })
+                ->orWhereHas('application_type', function ($query) use ($term) {
+                    $query->where('application_type_name', 'like', $term);
+                })
+                ->orWhereHas('sex_type', function ($query) use ($term) {
+                    $query->where('sex_type_name', 'like', $term);
+                })
+                ->orWhereHas('prefix', function ($query) use ($term) {
+                    $query->where('prefix_name', 'like', $term);
+                })
+                ->orWhereHas('suffix', function ($query) use ($term) {
+                    $query->where('suffix_name', 'like', $term);
+                })
+                ->orWhereHas('primary_citizenship', function ($query) use ($term) {
+                    $query->where('nationality_name', 'like', $term);
+                })
+                ->orWhereHas('secondary_citizenship', function ($query) use ($term) {
+                    $query->where('nationality_name', 'like', $term);
+                })
+                ->orWhereHas('residential_region', function ($query) use ($term) {
+                    $query->where('region_name', 'like', $term);
+                })
+                ->orWhereHas('residential_province', function ($query) use ($term) {
+                    $query->where('province_name', 'like', $term);
+                })
+                ->orWhereHas('residential_city', function ($query) use ($term) {
+                    $query->where('city_name', 'like', $term);
+                })
+                ->orWhereHas('residential_barangay', function ($query) use ($term) {
+                    $query->where('barangay_name', 'like', $term);
+                })
+                ->orWhereHas('business_region', function ($query) use ($term) {
+                    $query->where('region_name', 'like', $term);
+                })
+                ->orWhereHas('business_province', function ($query) use ($term) {
+                    $query->where('province_name', 'like', $term);
+                })
+                ->orWhereHas('business_city', function ($query) use ($term) {
+                    $query->where('city_name', 'like', $term);
+                })
+                ->orWhereHas('business_barangay', function ($query) use ($term) {
+                    $query->where('barangay_name', 'like', $term);
+                })
+                ->orWhereHas('user_created', function ($query) use ($term) {
+                    $query->where('last_name', 'like', $term)
+                        ->orWhere('first_name', 'like', $term)
+                        ->orWhere('email', 'like', $term);
+                })
+                ->orWhereHas('user_updated', function ($query) use ($term) {
+                    $query->where('last_name', 'like', $term)
+                        ->orWhere('first_name', 'like', $term)
+                        ->orWhere('email', 'like', $term);
                 });
-            }
         });
     }
 }

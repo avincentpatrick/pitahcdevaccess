@@ -281,7 +281,7 @@ class ListPractitioners extends Component
     
     public function getPractitionersQueryProperty()
     {
-        return Practitioner::with(['status_type', 'sex_type', 'region', 'province', 'city', 'barangay'])
+        return Practitioner::with(['status_type', 'sex_type', 'residential_region', 'residential_province', 'residential_city', 'residential_barangay'])
             ->when($this->SelectedRegion, function ($query) {
                 $query->where('residential_region_id', $this->SelectedRegion);
             })

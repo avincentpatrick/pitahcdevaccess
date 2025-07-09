@@ -33,8 +33,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(SuffixesTableSeeder::class);
         // $this->call(UserlevelsTableSeeder::class);
         // $this->call(SubUserlevelsTableSeeder::class);
-        // $this->call(ApplicationTypesTableSeeder::class);
-        // $this->call(ApplicationSubTypesTableSeeder::class);
+        $this->call(ApplicationTypesTableSeeder::class);
+        $this->call(ApplicationSubTypesTableSeeder::class);
         $this->call(AvailabilityTypesTableSeeder::class);
     }
 }

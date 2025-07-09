@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Livewire\Auth\Verify;
 use App\Http\Livewire\Pages\Dashboard;
 use App\Http\Livewire\Pages\NoAccess;
@@ -47,7 +49,7 @@ Route::get('/apply-certification', function () {
 })->name('apply-certification');
 
 Auth::routes(['verify' => true]);
-Route::group(['middleware' => ['auth', 'verified', 'ActivatedAccountAccess']], function(){
+Route::group(['middleware' => ['auth', 'verified', 'activated', 'inactive']], function(){
     Route::get('/pages/dashboard', Dashboard::class)->name('dashboard');
     
     Route::get('/pages/practitioners/list-practitioners', ListPractitioners::class)->name('list-practitioners');
@@ -59,7 +61,7 @@ Route::group(['middleware' => ['auth', 'verified', 'ActivatedAccountAccess']], f
     Route::get('/pages/practitioners/view-certificate/{param}', ViewCertificate::class)->name('view-certificate');
     Route::get('/pages/practitioners/file-upload', FileUpload::class)->name('file-upload');
     });
-Route::group(['middleware' => ['auth', 'AdminLevel', 'ActivatedAccountAccess']], function(){
+Route::group(['middleware' => ['auth', 'admin', 'activated', 'inactive']], function(){
     Route::get('/pages/users/list-users', ListUsers::class)->name('list-users');
 });
 

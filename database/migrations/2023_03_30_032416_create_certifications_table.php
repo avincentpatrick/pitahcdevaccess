@@ -20,7 +20,7 @@ class CreateCertificationsTable extends Migration
             $table->integer('application_type_id')->nullable();
             $table->integer('application_sub_type_id')->nullable();
             $table->string('certification_code')->nullable();
-            $table->string('practitioner_certificate_file')->nullable();
+            $table->string('practitioner_certificate_file_name')->nullable();
             $table->integer('certificate_availability_id')->nullable();
             $table->integer('modality_class_id')->nullable();
             $table->date('entry_date')->nullable();

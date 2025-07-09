@@ -108,13 +108,9 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
                     $query->where('status_type_name', 'like', $term);
                 })
                 ->orWhereHas('user_updated', function ($query) use ($term) {
-                    $query->where('last_name', 'like', $term);
-                })
-                ->orWhereHas('user_updated', function ($query) use ($term) {
-                    $query->where('first_name', 'like', $term);
-                })
-                ->orWhereHas('user_updated', function ($query) use ($term) {
-                    $query->where('email', 'like', $term);
+                    $query->where('last_name', 'like', $term)
+                        ->orWhere('first_name', 'like', $term)
+                        ->orWhere('email', 'like', $term);
                 });
         });
     }
